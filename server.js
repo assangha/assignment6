@@ -3,11 +3,12 @@ const express = require('express');
 const app = express();
 const cors = require("cors");
 const dotenv = require("dotenv");
+dotenv.config();
+const userService = require("./user-service.js");
+
 const passport = require("passport");
 const passportJWT = require("passport-jwt");
 const jwt = require("jsonwebtoken");
-dotenv.config();
-const userService = require("./user-service.js");
 
 const HTTP_PORT = process.env.PORT || 8080;
 
@@ -25,10 +26,10 @@ const jwtStrategy = new JwtStrategy(jwtOptions, function (jwt_payload, next) {
     if (jwt_payload) {
         
         const user = {
-        userName: jwt_payload.userName,
+        userName: jwt_payload.userName/*,
         password: jwt_payload.password,
         favourites: jwt_payload.favourites,
-        history: jwt_payload.history
+        history: jwt_payload.history*/
         };
         next(null, user);
     } else {
